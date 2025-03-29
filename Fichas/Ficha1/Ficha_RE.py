@@ -129,7 +129,7 @@ def codigos(listaCPs):
     for cp in listaCPs:
       if re.match(r'\d{4}-\d{3}$', cp):
         codigo_par = re.split(r'-', cp)
-        resultado.append(codigo_par)
+        resultado.append((codigo_par[0], codigo_par[1]))
     return resultado
 
 print(codigos(lista))
