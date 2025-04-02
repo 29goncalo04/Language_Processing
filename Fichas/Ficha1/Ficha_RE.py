@@ -11,6 +11,7 @@ r'^$' #Todas as strings binárias que não contêm a substring "110"????
 r'^[01]{2}0[01]*$' #Todas as strings binárias que contêm pelo menos três carateres e o terceiro é '0'
 r'^(0|1)[01]*\1$' #Todas as strings binárias que começam e acabam pelo mesmo dígito
 
+
 #exercicio 1.1
 lines = ["hello world", "goodbye world", "hi, hello there"]
 def hello():
@@ -19,7 +20,8 @@ def hello():
         print(f"Deu match na frase: {line}")
       else:
         print(f"Não deu match na frase: {line}")
-      
+
+
 #exercicio 1.2
 lines = ["hello world", "goodbye world", "hi, hello there"]
 def hello2():
@@ -29,6 +31,7 @@ def hello2():
     else:
       print(f"Não contém 'hello' na linha. {re.search(r'hello', line)}")
 
+
 #exercicio 1.3
 line = "Hello there! Uh, hi, hello, it's me... Heyyy, hello? HELLO!"
 def hello3():
@@ -36,17 +39,20 @@ def hello3():
   ocorrencias = re.findall(r'hello', line, re.IGNORECASE)
   print(ocorrencias)
 
+
 #exercicio 1.4
 line = "Hello there! Uh, hi, hello, it's me... Heyyy, hello? HELLO!"
 def hello4():
   new_line = re.sub(r'hello', "*YEP*", line, flags=re.IGNORECASE)
   print(new_line)
 
+
 #exercicio 1.5
 line = "bananas, laranjas, maçãs, uvas, melancias, cerejas, kiwis, etc."
 def virgula():
   elementos = re.split(r',', line)
   print(elementos)
+
 
 #exercicio 2
 def palavra_magica(frase):
@@ -58,12 +64,14 @@ def palavra_magica(frase):
 print(palavra_magica("Posso ir à casa de banho, por favor?"))
 print(palavra_magica("Preciso de um favor."))
 
+
 #exercicio 3
 def narcissismo(linha):
     elementos = re.findall(r'\beu\b', linha, re.IGNORECASE)
     return len(elementos)
 
 print(narcissismo("Eu não sei se eu quero continuar a ser eu. Por outro lado, eu ser eu é uma parte importante de quem EU sou."))
+
 
 #exercicio 4
 def troca_de_curso(linha, novo_curso):
@@ -73,6 +81,7 @@ def troca_de_curso(linha, novo_curso):
 fonte = "LEI é o melhor curso! Adoro LEI! Gostar de LEI devia ser uma lei."
 curso = input("Novo curso? ")
 print(troca_de_curso(fonte, curso))
+
 
 #exercicio 5
 def soma_string(linha):
@@ -85,6 +94,7 @@ def soma_string(linha):
 print(soma_string("4,10,-6,2,3,8,-3,0,2,-5,1"))
 print(soma_string("4,5,-3"))
 
+
 #exercicio 6
 def pronomes(frase):
     pronomes = re.findall(r'\b(eu|tu|ele|ela|nós|vós|eles|elas)\b', frase, re.IGNORECASE)
@@ -92,11 +102,13 @@ def pronomes(frase):
 
 print(pronomes("Ola eu vou de certeza. Tu tu e ele, vêm? Eu não espero por vós. Eu estou com pressa, ele tem de vir!"))
 
+
 #exercicio 7
 def variavel_valida(id):
     return bool(re.match(r'[a-zA-Z][\w]*$', id))
 
 print(variavel_valida("aa11_aaaa"))
+
 
 #exercicio 8
 def extrai_inteiros(texto):
@@ -105,12 +117,14 @@ def extrai_inteiros(texto):
 
 print(extrai_inteiros(fonte))
 
+
 #exercicio 9
 def underscores( frase ):
     nova_frase = re.sub(r' +', "_", frase)
     return nova_frase
 
 print(underscores("Aqui temos   um belo  exemplo   de frase!"))
+
 
 #exercicio 10
 lista = [
