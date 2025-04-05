@@ -72,7 +72,7 @@ def codigos_postais(codigos):
     return resultado
 
 
-#exercicio 4 ???????????????????????????????????? (mal feito)
+#exercicio 4
 abreviaturas = {
     "UM": "Universidade do Minho",
     "LEI": "Licenciatura em Engenharia Informática",
@@ -103,6 +103,148 @@ matriculas = [
     "42-HA BQ" # válida, mas inválida com o requisito extra
 ]
 
+def matricula_valida(matriculas):
+    valida = re.compile(r'^\d{2}-[A-Z]{2}-[A-Z]{2}$|'       #11-AA-AA
+                        r'^[A-Z]{2}-\d{2}-[A-Z]{2}$|'       #AA-11-AA
+                        r'^[A-Z]{2}-[A-Z]{2}-\d{2}$|'       #AA-AA-11
+                        r'^[A-Z]{2}-\d{2}-\d{2}$|'          #AA-11-11
+                        r'^\d{2}-[A-Z]{2}-\d{2}$|'          #11-AA-11
+                        r'^\d{2}-\d{2}-[A-Z]{2}$|'          #11-11-AA
+
+                        r'^\d{2} [A-Z]{2} [A-Z]{2}$|'       #11 AA AA
+                        r'^[A-Z]{2} \d{2} [A-Z]{2}$|'       #AA 11 AA
+                        r'^[A-Z]{2} [A-Z]{2} \d{2}$|'       #AA AA 11
+                        r'^[A-Z]{2} \d{2} \d{2}$|'          #AA 11 11
+                        r'^\d{2} [A-Z]{2} \d{2}$|'          #11 AA 11
+                        r'^\d{2} \d{2} [A-Z]{2}$'           #11 11 AA
+                        )
+    for matricula in matriculas:
+        if valida.search(matricula):
+            print("É válida")
+        else:
+            print("É inválida")
+
+
+#exercicio 6
+texto = """Num lindo dia de [ESTAÇÃO DO ANO], [NOME DE PESSOA] foi passear com o seu [EXPRESSÃO DE PARENTESCO MASCULINA].
+Quando chegaram à [NOME DE LOCAL FEMININO], encontraram um [OBJETO MASCULINO] muito [ADJETIVO MASCULINO].
+Ficaram muito confusos, pois não conseguiam identificar a função daquilo.
+Seria para [VERBO INFINITIVO]? Tentaram perguntar a [NOME DE PESSOA FAMOSA], que também não sabia.
+Desanimados, pegaram no objeto e deixaram-no no [NOME DE LOCAL MASCULINO] mais próximo.
+Talvez os [NOME PLURAL MASCULINO] de lá conseguissem encontrar alguma utilidade para aquilo."""
+
+def mad_libs(texto):
+    estacao_valida = re.compile(r'^(primavera|verão|outono|inverno)$', re.IGNORECASE)
+    pessoa_valida = re.compile(r'^[A-Za-z]+$')
+    parentesco_masculino_valido = re.compile(r'^(pai|avô|tio|primo|sobrinho|afilhado|sogro|cunhado|filho|neto|irmão)$', re.IGNORECASE)
+    local_feminino_valido = re.compile(r'^[a-z]+a$', re.IGNORECASE)
+    objeto_e_adjetivo_e_local_masculino_valido = re.compile(r'^[a-z]+o$', re.IGNORECASE)
+    verbo_valido = re.compile(r'^[a-z]+(a|e|i|o|u)r$', re.IGNORECASE)
+    nome_plural_masculino_valido = re.compile(r'^[a-z]+os$', re.IGNORECASE)
+
+    print(texto)
+
+    if(re.search(r'\[ESTAÇÃO DO ANO\]', texto)):
+        seguinte = False
+        while(not(seguinte)):
+            estacao = input("Insira a estação do ano: ")
+            if (estacao_valida.search(estacao)):
+                texto = re.sub(r'\[ESTAÇÃO DO ANO\]', estacao, texto)
+                seguinte = True
+            else:
+                print("Estação inválida")
+
+    if(re.search(r'\[NOME DE PESSOA\]', texto)):
+        seguinte = False
+        while(not(seguinte)):
+            pessoa = input("Insira o nome da pessoa: ")
+            if (pessoa_valida.search(pessoa)):
+                texto = re.sub(r'\[NOME DE PESSOA\]', pessoa, texto)
+                seguinte = True
+            else:
+                print("Pessoa inválida")
+
+    if(re.search(r'\[EXPRESSÃO DE PARENTESCO MASCULINA\]', texto)):
+        seguinte = False
+        while(not(seguinte)):
+            parentesco_masculino = input("Insira uma expressão de parentesco masculina: ")
+            if (parentesco_masculino_valido.search(parentesco_masculino)):
+                texto = re.sub(r'\[EXPRESSÃO DE PARENTESCO MASCULINA\]', parentesco_masculino, texto)
+                seguinte = True
+            else:
+                print("Expressão de parentesco masculina inválida")
+
+    if(re.search(r'\[NOME DE LOCAL FEMININO\]', texto)):
+        seguinte = False
+        while(not(seguinte)):
+            local = input("Insira um nome de local feminino: ")
+            if (local_feminino_valido.search(local)):
+                texto = re.sub(r'\[NOME DE LOCAL FEMININO\]', local, texto)
+                seguinte = True
+            else:
+                print("Local feminino inválido")
+
+    if(re.search(r'\[OBJETO MASCULINO\]', texto)):
+        seguinte = False
+        while(not(seguinte)):
+            objeto = input("Insira um nome de objeto masculino: ")
+            if (objeto_e_adjetivo_e_local_masculino_valido.search(objeto)):
+                texto = re.sub(r'\[OBJETO MASCULINO\]', objeto, texto)
+                seguinte = True
+            else:
+                print("Objeto masculino inválido")
+
+    if(re.search(r'\[ADJETIVO MASCULINO\]', texto)):
+        seguinte = False
+        while(not(seguinte)):
+            adjetivo = input("Insira um adjetivo masculino: ")
+            if (objeto_e_adjetivo_e_local_masculino_valido.search(adjetivo)):
+                texto = re.sub(r'\[ADJETIVO MASCULINO\]', adjetivo, texto)
+                seguinte = True
+            else:
+                print("Adjetivo masculino inválido")
+
+    if(re.search(r'\[VERBO INFINITIVO\]', texto)):
+        seguinte = False
+        while(not(seguinte)):
+            verbo = input("Insira um verbo no infinitivo: ")
+            if (verbo_valido.search(verbo)):
+                texto = re.sub(r'\[VERBO INFINITIVO\]', verbo, texto)
+                seguinte = True
+            else:
+                print("Verbo no infinitivo inválido")
+
+    if(re.search(r'\[NOME DE PESSOA FAMOSA\]', texto)):
+        seguinte = False
+        while(not(seguinte)):
+            pessoa = input("Insira o nome de uma pessoa famosa: ")
+            if (pessoa_valida.search(pessoa)):
+                texto = re.sub(r'\[NOME DE PESSOA FAMOSA\]', pessoa, texto)
+                seguinte = True
+            else:
+                print("Nome de pessoa famosa inválido")
+
+    if(re.search(r'\[NOME DE LOCAL MASCULINO\]', texto)):
+        seguinte = False
+        while(not(seguinte)):
+            local = input("Insira o nome de um local masculino: ")
+            if (objeto_e_adjetivo_e_local_masculino_valido.search(local)):
+                texto = re.sub(r'\[NOME DE LOCAL MASCULINO\]', local, texto)
+                seguinte = True
+            else:
+                print("Nome de local masculino inválido")
+
+    if(re.search(r'\[NOME PLURAL MASCULINO\]', texto)):
+        seguinte = False
+        while(not(seguinte)):
+            plural = input("Insira um nome plural masculino: ")
+            if (nome_plural_masculino_valido.search(plural)):
+                texto = re.sub(r'\[NOME PLURAL MASCULINO\]', plural, texto)
+                seguinte = True
+            else:
+                print("Nome plural masculino inválido")
+
+    print(texto)
 
 
 #exercício 7
@@ -112,46 +254,40 @@ html = html_file.read()
 
 products_dict = {}
 
-products = re.findall(r'<div class="product">(.*?)</div>', html,re.DOTALL)
+produtos = re.findall(r'<div class="product">(.*?)</div>', html, re.DOTALL)
 
-# Compiling the expressions
-title_re = re.compile(r'<h2>(.*)</h2>')
-price_re = re.compile(r'<span class="price">(.*)</span>')
-image_url_re = re.compile(r'<img src="(.*?)"')
-product_url_re = re.compile(r'<a class="product-link" href="(.*)"')
-features_re = re.compile(r'<ul class="features">(.*)</ul>',re.DOTALL)
-single_feature_re = re.compile(r'<li>(.*)</li>')
-for product in products:
+titulo_re = re.compile(r'<h2>(.+)</h2>')
+preco_re = re.compile(r'<span class="price">(.+)</span>')
+imagem_link_re = re.compile(r'<img src="(.+?)"')
+pagina_link_re = re.compile(r'<a class="product-link" href="(.+)"')
+caracteristicas_re = re.compile(r'<ul class="features">(.+?)</ul>', re.DOTALL)  #leva '?'
+caracteristica_re = re.compile(r'<li>(.+)</li>')
 
-    # List with all the product description
-    product_description = []
+for produto in produtos:
+    produto_descricao = []
 
-    # Consuming the information
-    title = title_re.search(product).group(1)
-    price = price_re.search(product).group(1)
-    image_url = image_url_re.search(product).group(1)
-    product_url = product_url_re.search(product).group(1)
-    features = features_re.search(product).group(1)
-    features = single_feature_re.findall(features)
+    titulo = titulo_re.search(produto).group(1)
+    preco = preco_re.search(produto).group(1)
+    imagem_link = imagem_link_re.search(produto).group(1)
+    pagina_link = pagina_link_re.search(produto).group(1)
+    caracteristicas_juntas = caracteristicas_re.search(produto).group(1)
+    caracteristicas_separadas = caracteristica_re.findall(caracteristicas_juntas)
 
-    # Adding the information to the product description list
-    product_description.append(("💲 Preço", price))
-    product_description.append(("🖼️ Imagem", image_url))
-    product_description.append(("🔗 Link", product_url))
-    product_description.append(("📋 Caraterísticas", features))
+    produto_descricao.append(("💲 Preço", preco))
+    produto_descricao.append(("🖼️ Imagem", imagem_link))
+    produto_descricao.append(("🔗 Link", pagina_link))
+    produto_descricao.append(("📋 Caraterísticas", caracteristicas_separadas))
 
-    # Adding the product to the dictionary
-    products_dict[title] = product_description
-
+    products_dict[titulo] = produto_descricao
 
 print("=== 📦 Produtos Extraídos ===")
-for key,product in products_dict.items():
+for titulo, produto in products_dict.items():
     print("--------------------------------------------------")
-    print(f"🛒 Produto: {key}")
-    for item in product:
-        if item[0] == "📋 Caraterísticas":
-            print(f"{item[0]}: ")
-            for feature in item[1]:
-                print(f"  - {feature}")
+    print(f"🛒 Produto: {titulo}")
+    for categoria in produto:
+        if categoria[0] == "📋 Caraterísticas":
+            print(f"{categoria[0]}:")
+            for caracteristica in categoria[1]:
+                print(f"    - {caracteristica}")
         else:
-            print(f"{item[0]}: {item[1]}")
+            print(f"{categoria[0]}: {categoria[1]}")

@@ -72,6 +72,11 @@ def p_error(p):
 parser = yacc.yacc()
 resultado  = parser.parse('[78,teste,2]')
 print(resultado)
-# while s := input('calc > '):
-#    result = parser.parse(s)
-#    print(result)
+
+
+
+
+
+
+#####################################
+#Lista de compras
